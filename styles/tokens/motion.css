@@ -1,0 +1,13 @@
+:root {
+  --ease-confident: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --motion-fast: 150ms;
+  --motion-base: 250ms;
+  --motion-slow: 450ms;
+
+  --motion-stagger-child: 60ms;
+  --motion-stagger-cap: 6;
+
+  --motion-reveal-distance: 24px;
+  --motion-reveal-opacity-start: 0.9;
+}

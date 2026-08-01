@@ -1,0 +1,33 @@
+:root {
+  /* Navy ramp — one coherent hue family, darkest to lightest (Phase 2 §2) */
+  --navy-950: #04122e;
+  --navy-900: #061d45;
+  --navy-700: #0b2f6b;
+  --navy-500: #174c9b;
+  --navy-50: #eef5ff;
+
+  --steel-700: #7a8491;
+  --steel-400: #a8afb8;
+  --steel-100: #f5f7fa;
+
+  --ink-900: #1b2735;
+  --white: #ffffff;
+
+  --success-600: #1f7a3f;
+  --error-600: #b3261e;
+  --warning-600: #b7791f;
+
+  /* Base spacing unit: 8px scale (Phase 2 §4) */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --space-40: 160px;
+}

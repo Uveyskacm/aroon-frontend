@@ -1,0 +1,33 @@
+:root {
+  /* Surfaces */
+  --surface-page: var(--white);
+  --surface-alt: var(--steel-100);
+  --surface-accent: var(--navy-50);
+  --surface-stage: var(--navy-950);
+  --surface-inverse: var(--navy-900);
+
+  /* Text */
+  --text-primary: var(--ink-900);
+  --text-inverse: var(--white);
+  --text-inverse-muted: color-mix(in srgb, var(--navy-50) 75%, transparent);
+  --text-muted: var(--steel-700);
+  --text-link: var(--navy-500);
+  --text-link-hover: var(--navy-700);
+  --text-link-inverse: var(--white);
+
+  /* Borders */
+  --border-default: var(--steel-400);
+  --border-inverse: color-mix(in srgb, var(--white) 12%, transparent);
+
+  /* Accents */
+  --accent-primary: var(--navy-700);
+  --accent-primary-hover: var(--navy-900);
+
+  /* State */
+  --state-success: var(--success-600);
+  --state-error: var(--error-600);
+  --state-warning: var(--warning-600);
+
+  /* Focus */
+  --focus-ring: color-mix(in srgb, var(--navy-500) 40%, transparent);
+}

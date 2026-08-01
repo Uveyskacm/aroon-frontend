@@ -1,26 +1,77 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "../styles/tokens/primitives.css";
+@import "../styles/tokens/semantic.css";
+@import "../styles/tokens/typography.css";
+@import "../styles/tokens/motion.css";
+@import "../styles/tokens/elevation.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-surface-page: var(--surface-page);
+  --color-surface-alt: var(--surface-alt);
+  --color-surface-accent: var(--surface-accent);
+  --color-surface-stage: var(--surface-stage);
+  --color-surface-inverse: var(--surface-inverse);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-text-primary: var(--text-primary);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-inverse-muted: var(--text-inverse-muted);
+  --color-text-muted: var(--text-muted);
+  --color-text-link: var(--text-link);
+  --color-text-link-hover: var(--text-link-hover);
+  --color-text-link-inverse: var(--text-link-inverse);
+
+  --color-border-default: var(--border-default);
+  --color-border-inverse: var(--border-inverse);
+
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-primary-hover: var(--accent-primary-hover);
+
+  --color-state-success: var(--state-success);
+  --color-state-error: var(--state-error);
+  --color-state-warning: var(--state-warning);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono-tech: var(--font-mono-tech);
+
+  --shadow-elevation-1: var(--elevation-1);
+  --shadow-elevation-2: var(--elevation-2);
+  --shadow-elevation-3: var(--elevation-3);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--surface-page);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1300;
+  background: var(--surface-inverse);
+  color: var(--text-inverse);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+
+.skip-link:focus {
+  left: 0;
 }
