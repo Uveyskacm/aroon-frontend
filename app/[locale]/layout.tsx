@@ -78,6 +78,7 @@ export default async function LocaleLayout({
             nav={primaryNav}
             quoteLabel={quoteLabel}
             companyName={settings.companyName}
+            logoUrl={settings.logoUrl}
           />
           <main id="main-content" className="flex-1">
             {children}

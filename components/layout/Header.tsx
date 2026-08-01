@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ChevronDown, Menu } from "lucide-react";
 import { clsx } from "clsx";
 import { Link } from "@/i18n/navigation";
@@ -12,17 +13,30 @@ interface HeaderProps {
   nav: NavItem[];
   quoteLabel: string;
   companyName: string;
+  logoUrl?: string | null;
 }
 
 /** Sticky header, desktop dropdowns + mobile hamburger (Phase 2 §7). */
-export function Header({ nav, quoteLabel, companyName }: HeaderProps) {
+export function Header({ nav, quoteLabel, companyName, logoUrl }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-[1000] border-b border-border-default bg-surface-page">
       <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-[clamp(20px,4vw,64px)]">
-        <Link href="/" className="text-[1.4rem] font-bold text-accent-primary">
-          {companyName || "AROON"}
+        <Link href="/" className="flex items-center gap-2 text-[1.4rem] font-bold text-accent-primary">
+          {logoUrl ? (
+            <Image
+              src={logoUrl}
+              alt={companyName || "AROON"}
+              width={0}
+              height={0}
+              sizes="160px"
+              className="h-10 w-auto"
+              priority
+            />
+          ) : (
+            companyName || "AROON"
+          )}
         </Link>
 
         <nav aria-label="Ana menü" className="hidden items-center gap-1 lg:flex">

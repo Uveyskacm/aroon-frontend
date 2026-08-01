@@ -5,6 +5,7 @@ import type { SiteSettings } from "@/lib/types/wordpress";
 
 const EMPTY_SETTINGS: SiteSettings = {
   companyName: "",
+  logoUrl: null,
   hqAddress: "",
   factoryAddress: "",
   phone: "",

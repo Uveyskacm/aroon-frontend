@@ -149,6 +149,7 @@ export interface PaginatedResult<T> {
 
 export interface SiteSettings {
   companyName: string;
+  logoUrl: string | null;
   hqAddress: string;
   factoryAddress: string;
   phone: string;
