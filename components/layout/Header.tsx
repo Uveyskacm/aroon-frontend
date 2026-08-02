@@ -30,8 +30,8 @@ export function Header({ nav, quoteLabel, companyName, logoUrl }: HeaderProps) {
               alt={companyName || "AROON"}
               width={0}
               height={0}
-              sizes="160px"
-              className="h-10 w-auto"
+              sizes="200px"
+              className="h-14 w-auto"
               priority
             />
           ) : (

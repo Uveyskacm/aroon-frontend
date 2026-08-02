@@ -64,8 +64,8 @@ export function Footer({ locale, settings, corporateNav, resourcesNav, legalNav,
               alt={companyName || "AROON"}
               width={0}
               height={0}
-              sizes="160px"
-              className="h-10 w-auto"
+              sizes="200px"
+              className="h-14 w-auto"
             />
           ) : (
             <span className="text-xl font-bold">{companyName || "AROON"}</span>
