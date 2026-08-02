@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -50,7 +51,17 @@ export function CorporateIntro({ intro, stats }: { intro: HomeFields["intro"]; s
   return (
     <section ref={container} className="mx-auto max-w-[1280px] px-[clamp(20px,4vw,64px)] py-[clamp(64px,8vw,128px)]">
       <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-        <div className="intro-media relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] bg-surface-alt order-2 lg:order-1" />
+        <div className="intro-media relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] bg-surface-alt order-2 lg:order-1">
+          {intro.image ? (
+            <Image
+              src={intro.image.sizes.large ?? intro.image.url}
+              alt={intro.image.alt}
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+          ) : null}
+        </div>
         <div className="intro-copy order-1 lg:order-2">
           {intro.eyebrow ? (
             <span className="text-[length:var(--text-caption)] font-medium uppercase tracking-[0.04em] text-text-muted">

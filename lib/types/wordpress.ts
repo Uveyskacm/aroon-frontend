@@ -190,6 +190,7 @@ export interface HomeFields {
     heading: string;
     body: string;
     ctaLabel: string;
+    image: WpMedia | null;
   };
   stats: { label: string; value: string }[];
   why: {

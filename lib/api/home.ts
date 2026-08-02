@@ -22,7 +22,7 @@ const EMPTY_HOME: HomeFields = {
     visualMode: "image",
     fallbackImage: null,
   },
-  intro: { eyebrow: "", heading: "", body: "", ctaLabel: "" },
+  intro: { eyebrow: "", heading: "", body: "", ctaLabel: "", image: null },
   stats: [],
   why: { heading: "", items: [] },
   process: { heading: "", steps: [] },
@@ -83,6 +83,7 @@ export async function getHomePage(locale: Locale): Promise<HomePageData> {
         heading: f.intro?.heading ?? "",
         body: f.intro?.body ?? "",
         ctaLabel: f.intro?.cta_label ?? "",
+        image: adaptMedia(f.intro?.image),
       },
       stats: (f.stats ?? []).filter((s: any) => s.label && s.value),
       why: {
