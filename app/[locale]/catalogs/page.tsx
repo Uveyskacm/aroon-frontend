@@ -5,6 +5,11 @@ import { getPathname } from "@/i18n/navigation";
 import { Card } from "@/components/ui/Card";
 import { FadeInStagger } from "@/components/motion/FadeInStagger";
 
+/** Only catalogs with a working PDF link are actionable — WP's own gating (Phase 1 §3) should already ensure this, but a missing pdfUrl here must never render a dead/download-nothing card. */
+function withPdf<T extends { pdfUrl: string | null }>(catalogs: T[]): (T & { pdfUrl: string })[] {
+  return catalogs.filter((c): c is T & { pdfUrl: string } => Boolean(c.pdfUrl));
+}
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aroon.com.tr";
 
 interface PageProps {
@@ -25,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function CatalogsArchivePage({ params }: PageProps) {
   const { locale } = await params;
   const typedLocale = locale as Locale;
-  const catalogs = await getCatalogs(typedLocale);
+  const catalogs = withPdf(await getCatalogs(typedLocale));
 
   const t =
     typedLocale === "tr"
@@ -42,10 +47,8 @@ export default async function CatalogsArchivePage({ params }: PageProps) {
             {catalogs.map((catalog) => (
               <Card
                 key={catalog.id}
-                href={getPathname({
-                  locale: typedLocale,
-                  href: { pathname: "/catalogs/[slug]", params: { slug: catalog.slug } },
-                })}
+                href={catalog.pdfUrl}
+                download
                 title={catalog.title}
                 description={catalog.excerpt}
                 image={catalog.coverImage}

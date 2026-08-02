@@ -11,13 +11,17 @@ interface CardProps {
   description?: string;
   footer?: ReactNode;
   className?: string;
+  /** Set when `href` points straight at a file (e.g. a catalog PDF) rather than another page — prompts a save-to-disk instead of navigating. */
+  download?: boolean;
 }
 
 /** One shared card primitive reused by Product/Catalog/News/Reference cards (Phase 2 §6). */
-export function Card({ href, image, eyebrow, title, description, footer, className }: CardProps) {
+export function Card({ href, image, eyebrow, title, description, footer, className, download }: CardProps) {
   return (
     <a
       href={href}
+      download={download}
+      {...(download ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={clsx(
         "group flex flex-col overflow-hidden rounded-[var(--radius-md)] bg-surface-page",
         "shadow-[var(--shadow-elevation-1)] transition-all duration-[var(--motion-base)] ease-[var(--ease-confident)]",
