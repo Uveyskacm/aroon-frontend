@@ -24,6 +24,7 @@ const EMPTY_HOME: HomeFields = {
   },
   intro: { eyebrow: "", heading: "", body: "", ctaLabel: "", image: null },
   stats: [],
+  models3d: [],
   why: { heading: "", items: [] },
   process: { heading: "", steps: [] },
   featured: {
@@ -86,6 +87,7 @@ export async function getHomePage(locale: Locale): Promise<HomePageData> {
         image: adaptMedia(f.intro?.image),
       },
       stats: (f.stats ?? []).filter((s: any) => s.label && s.value),
+      models3d: (f.models3d ?? []).filter((m: any) => m.modelUrl),
       why: {
         heading: f.why?.heading ?? "",
         items: f.why?.items ?? [],

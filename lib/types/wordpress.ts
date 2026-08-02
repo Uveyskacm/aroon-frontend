@@ -193,6 +193,7 @@ export interface HomeFields {
     image: WpMedia | null;
   };
   stats: { label: string; value: string }[];
+  models3d: { title: string; modelUrl: string }[];
   why: {
     heading: string;
     items: { icon: string; title: string; description: string }[];

@@ -12,6 +12,7 @@ import { Hero } from "@/components/home/Hero";
 import { HomeContentUnavailable } from "@/components/home/HomeContentUnavailable";
 import { CorporateIntro } from "@/components/home/CorporateIntro";
 import { ProductCategoriesGrid } from "@/components/home/ProductCategoriesGrid";
+import { Model3DSlider } from "@/components/home/Model3DSlider";
 import { WhySection } from "@/components/home/WhySection";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { FeaturedGrid } from "@/components/home/FeaturedGrid";
@@ -66,6 +67,7 @@ export default async function HomePage({
       <Hero hero={fields.hero} />
       <CorporateIntro intro={fields.intro} stats={fields.stats} />
       <ProductCategoriesGrid categories={categories} locale={typedLocale} />
+      <Model3DSlider models={fields.models3d} locale={typedLocale} />
       <WhySection why={fields.why} />
       <ProcessSection process={fields.process} />
       <FeaturedGrid
