@@ -2,14 +2,20 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { FadeInStagger } from "@/components/motion/FadeInStagger";
 import { resolveIcon } from "@/lib/icons";
+import type { Locale } from "@/i18n/routing";
 import type { ProductCategory } from "@/lib/types/wordpress";
 
-export function ProductCategoriesGrid({ categories }: { categories: ProductCategory[] }) {
+const HEADING: Record<Locale, string> = {
+  tr: "Ürün Kategorileri",
+  en: "Product Categories",
+};
+
+export function ProductCategoriesGrid({ categories, locale }: { categories: ProductCategory[]; locale: Locale }) {
   if (!categories.length) return null;
 
   return (
     <section className="mx-auto max-w-[1280px] px-[clamp(20px,4vw,64px)] py-[clamp(64px,8vw,128px)]">
-      <h2 className="text-[length:var(--text-h2)] text-text-primary">Ürün Kategorileri</h2>
+      <h2 className="text-[length:var(--text-h2)] text-text-primary">{HEADING[locale]}</h2>
       <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <FadeInStagger>
           {categories.map((category) => {

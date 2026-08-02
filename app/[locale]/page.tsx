@@ -65,7 +65,7 @@ export default async function HomePage({
       />
       <Hero hero={fields.hero} />
       <CorporateIntro intro={fields.intro} stats={fields.stats} />
-      <ProductCategoriesGrid categories={categories} />
+      <ProductCategoriesGrid categories={categories} locale={typedLocale} />
       <WhySection why={fields.why} />
       <ProcessSection process={fields.process} />
       <FeaturedGrid
