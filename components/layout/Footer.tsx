@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
@@ -57,7 +58,18 @@ export function Footer({ locale, settings, corporateNav, resourcesNav, legalNav,
     <footer className="bg-surface-inverse text-text-inverse">
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-[clamp(20px,4vw,64px)] py-16 sm:grid-cols-2 lg:grid-cols-5">
         <div className="lg:col-span-1">
-          <span className="text-xl font-bold">{companyName || "AROON"}</span>
+          {settings.logoUrl ? (
+            <Image
+              src={settings.logoUrl}
+              alt={companyName || "AROON"}
+              width={0}
+              height={0}
+              sizes="160px"
+              className="h-10 w-auto"
+            />
+          ) : (
+            <span className="text-xl font-bold">{companyName || "AROON"}</span>
+          )}
           {settings.footerBlurb ? (
             <p className="mt-3 text-sm text-text-inverse-muted">{settings.footerBlurb}</p>
           ) : null}
