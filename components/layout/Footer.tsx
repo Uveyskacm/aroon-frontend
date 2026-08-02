@@ -31,7 +31,7 @@ interface FooterProps {
 const LABELS: Record<Locale, Record<string, string>> = {
   tr: {
     corporate: "Kurumsal",
-    productsResources: "Ürünler & Kaynaklar",
+    productsResources: "Ürünler",
     products: "Ürünler",
     quickLinks: "Hızlı Bağlantılar",
     quote: "Teklif Al",
@@ -40,7 +40,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
   },
   en: {
     corporate: "Corporate",
-    productsResources: "Products & Resources",
+    productsResources: "Products",
     products: "Products",
     quickLinks: "Quick Links",
     quote: "Get a Quote",
