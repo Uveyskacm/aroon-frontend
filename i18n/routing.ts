@@ -3,7 +3,7 @@ import { defineRouting } from "next-intl/routing";
 export const locales = ["tr", "en"] as const;
 export type Locale = (typeof locales)[number];
 
-export const defaultLocale: Locale = "tr";
+export const defaultLocale: Locale = "en";
 
 /**
  * Internal route keys are English (matching the app/[locale]/... folder
