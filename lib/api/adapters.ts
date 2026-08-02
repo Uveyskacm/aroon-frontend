@@ -21,22 +21,57 @@ interface RawWpMedia {
   };
 }
 
-export function adaptMedia(raw: RawWpMedia | null | undefined): WpMedia | null {
-  if (!raw || !raw.source_url) return null;
-  const sizes = raw.media_details?.sizes ?? {};
-  return {
-    id: raw.id ?? 0,
-    url: raw.source_url,
-    alt: raw.alt_text ?? "",
-    width: raw.media_details?.width ?? 0,
-    height: raw.media_details?.height ?? 0,
-    sizes: {
-      thumbnail: sizes.thumbnail?.source_url,
-      medium: sizes.medium?.source_url,
-      large: sizes.large?.source_url,
-      full: raw.source_url,
-    },
-  };
+/** Shape returned by the mu-plugin's `aroon_bridge_expand_attachment()` (category/hero/gallery images) — flat, sizes are plain URL strings. */
+interface RawAroonMedia {
+  id?: number;
+  url?: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+  sizes?: Record<string, string>;
+}
+
+/**
+ * Two upstream shapes reach this function: WP core's own media object
+ * (`_embed`-expanded featured media — `source_url`/`media_details`) and the
+ * mu-plugin's `aroon_bridge_expand_attachment()` output (category/hero/
+ * gallery images — flat `url`/`sizes` strings). Both normalize to the same
+ * frontend `WpMedia` shape here.
+ */
+export function adaptMedia(raw: (RawWpMedia & RawAroonMedia) | null | undefined): WpMedia | null {
+  if (!raw) return null;
+  if (raw.source_url) {
+    const sizes = raw.media_details?.sizes ?? {};
+    return {
+      id: raw.id ?? 0,
+      url: raw.source_url,
+      alt: raw.alt_text ?? "",
+      width: raw.media_details?.width ?? 0,
+      height: raw.media_details?.height ?? 0,
+      sizes: {
+        thumbnail: sizes.thumbnail?.source_url,
+        medium: sizes.medium?.source_url,
+        large: sizes.large?.source_url,
+        full: raw.source_url,
+      },
+    };
+  }
+  if (raw.url) {
+    return {
+      id: raw.id ?? 0,
+      url: raw.url,
+      alt: raw.alt ?? "",
+      width: raw.width ?? 0,
+      height: raw.height ?? 0,
+      sizes: {
+        thumbnail: raw.sizes?.thumbnail,
+        medium: raw.sizes?.medium,
+        large: raw.sizes?.large,
+        full: raw.url,
+      },
+    };
+  }
+  return null;
 }
 
 interface RawSeo {
