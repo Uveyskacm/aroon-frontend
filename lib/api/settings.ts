@@ -33,8 +33,7 @@ const EMPTY_SETTINGS: SiteSettings = {
 export async function getSettings(locale: Locale): Promise<SiteSettings> {
   try {
     const raw = await fetchWp<any>(`/aroon/v1/settings?lang=${locale}`, {
-      tags: ["settings"],
-      revalidate: 86400,
+      cache: "no-store",
     });
     return { ...EMPTY_SETTINGS, ...(raw?.data ?? {}) };
   } catch {
