@@ -77,7 +77,7 @@ export async function getProducts(
   try {
     const res = await fetch(
       `${process.env.WP_API_URL ?? "https://cms.aroon.com.tr"}/wp/v2/product?${search.toString()}`,
-      { next: { tags: ["products"], revalidate: 3600 } },
+      { cache: "no-store" },
     );
     if (!res.ok) return { items: [], total: 0, totalPages: 0, page };
     const total = Number(res.headers.get("X-WP-Total") ?? 0);
