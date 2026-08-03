@@ -6,7 +6,8 @@ import { Link, getPathname } from "@/i18n/navigation";
 import { getReferenceBySlug, getReferences } from "@/lib/api/references";
 import { resolveMetadata } from "@/lib/seo/resolveMetadata";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { LanguageSwitcher, translationsToParamsByLocale } from "@/components/layout/LanguageSwitcher";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { translationsToParamsByLocale } from "@/i18n/translationsToParamsByLocale";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;

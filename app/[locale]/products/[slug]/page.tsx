@@ -15,7 +15,8 @@ import { SpecTable } from "@/components/products/SpecTable";
 import { DownloadsList } from "@/components/products/DownloadsList";
 import { Card } from "@/components/ui/Card";
 import { FadeInStagger } from "@/components/motion/FadeInStagger";
-import { LanguageSwitcher, translationsToParamsByLocale } from "@/components/layout/LanguageSwitcher";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { translationsToParamsByLocale } from "@/i18n/translationsToParamsByLocale";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
