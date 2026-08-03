@@ -105,6 +105,7 @@ export function Header({ nav, quoteLabel, companyName, logoUrl }: HeaderProps) {
         nav={nav}
         quoteLabel={quoteLabel}
         companyName={companyName}
+        logoUrl={logoUrl}
       />
     </header>
   );

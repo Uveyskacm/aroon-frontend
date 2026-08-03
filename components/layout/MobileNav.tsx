@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ChevronDown, X } from "lucide-react";
 import { clsx } from "clsx";
 import { Link } from "@/i18n/navigation";
@@ -13,6 +14,7 @@ interface MobileNavProps {
   nav: NavItem[];
   quoteLabel: string;
   companyName: string;
+  logoUrl?: string | null;
 }
 
 /**
@@ -20,7 +22,7 @@ interface MobileNavProps {
  * <button aria-expanded aria-controls> triggers, not links; Escape
  * collapses and returns focus to the trigger.
  */
-export function MobileNav({ open, onClose, nav, quoteLabel, companyName }: MobileNavProps) {
+export function MobileNav({ open, onClose, nav, quoteLabel, companyName, logoUrl }: MobileNavProps) {
   const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
@@ -42,7 +44,18 @@ export function MobileNav({ open, onClose, nav, quoteLabel, companyName }: Mobil
         )}
       >
         <div className="flex items-center justify-between border-b border-border-default px-5 py-5">
-          <span className="text-xl font-bold text-accent-primary">{companyName || "AROON"}</span>
+          {logoUrl ? (
+            <Image
+              src={logoUrl}
+              alt={companyName || "AROON"}
+              width={0}
+              height={0}
+              sizes="160px"
+              className="h-10 w-auto"
+            />
+          ) : (
+            <span className="text-xl font-bold text-accent-primary">{companyName || "AROON"}</span>
+          )}
           <button aria-label="Menüyü kapat" onClick={onClose}>
             <X aria-hidden />
           </button>
