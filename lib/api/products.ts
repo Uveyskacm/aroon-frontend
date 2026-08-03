@@ -71,7 +71,7 @@ export async function getProducts(
     page: String(page),
     _embed: "1",
   });
-  if (filter.category) search.set("product_category", filter.category);
+  if (filter.category) search.set("category_slug", filter.category);
   if (filter.q) search.set("search", filter.q);
 
   try {
