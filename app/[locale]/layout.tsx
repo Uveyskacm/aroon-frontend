@@ -7,6 +7,7 @@ import { getSettings } from "@/lib/api/settings";
 import { getNav } from "@/lib/api/nav";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import "../globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -91,6 +92,7 @@ export default async function LocaleLayout({
             legalNav={footerLegalNav}
             companyName={settings.companyName}
           />
+          <WhatsAppButton phoneNumber={settings.whatsappNumber || settings.phone} locale={typedLocale} />
         </NextIntlClientProvider>
       </body>
     </html>
