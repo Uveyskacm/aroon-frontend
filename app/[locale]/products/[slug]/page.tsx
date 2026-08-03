@@ -164,7 +164,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
           <h2 className="mb-5 text-[length:var(--text-h3)] text-text-primary">
             {typedLocale === "tr" ? "Teknik Özellikler" : "Technical Specifications"}
           </h2>
-          <SpecTable rows={product.specTable} />
+          <SpecTable rows={product.specTable} locale={typedLocale} />
         </div>
       ) : null}
 
