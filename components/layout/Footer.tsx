@@ -92,9 +92,9 @@ export function Footer({ locale, settings, corporateNav, resourcesNav, legalNav,
           ) : null}
         </div>
 
-        <div>
+        <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-[0.04em]">{t.corporate}</h4>
-          <ul className="flex flex-col gap-2 text-sm text-text-inverse-muted">
+          <ul className="flex flex-col items-center gap-2 text-sm text-text-inverse-muted sm:items-start">
             {corporateNav.map((item) => (
               <li key={item.id}>
                 {/* @ts-expect-error dynamic WP-driven href */}
@@ -104,9 +104,9 @@ export function Footer({ locale, settings, corporateNav, resourcesNav, legalNav,
           </ul>
         </div>
 
-        <div>
+        <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-[0.04em]">{t.productsResources}</h4>
-          <ul className="flex flex-col gap-2 text-sm text-text-inverse-muted">
+          <ul className="flex flex-col items-center gap-2 text-sm text-text-inverse-muted sm:items-start">
             <li>
               <Link href="/products">{t.products}</Link>
             </li>
@@ -119,9 +119,9 @@ export function Footer({ locale, settings, corporateNav, resourcesNav, legalNav,
           </ul>
         </div>
 
-        <div>
+        <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-[0.04em]">{t.quickLinks}</h4>
-          <ul className="flex flex-col gap-2 text-sm text-text-inverse-muted">
+          <ul className="flex flex-col items-center gap-2 text-sm text-text-inverse-muted sm:items-start">
             <li>
               <Link href="/quote">{t.quote}</Link>
             </li>
@@ -131,9 +131,9 @@ export function Footer({ locale, settings, corporateNav, resourcesNav, legalNav,
           </ul>
         </div>
 
-        <div>
+        <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-[0.04em]">{t.contactHeading}</h4>
-          <ul className="flex flex-col gap-2 text-sm text-text-inverse-muted">
+          <ul className="flex flex-col items-center gap-2 text-sm text-text-inverse-muted sm:items-start">
             {settings.phone ? <li>{settings.phone}</li> : null}
             {settings.email ? <li>{settings.email}</li> : null}
             {settings.hqAddress ? <li>{settings.hqAddress}</li> : null}
@@ -142,9 +142,9 @@ export function Footer({ locale, settings, corporateNav, resourcesNav, legalNav,
       </div>
 
       <div className="border-t border-border-inverse">
-        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-3 px-[clamp(20px,4vw,64px)] py-5 text-xs text-text-inverse-muted">
+        <div className="mx-auto flex max-w-[1280px] flex-col flex-wrap items-center justify-between gap-3 px-[clamp(20px,4vw,64px)] py-5 text-center text-xs text-text-inverse-muted sm:flex-row sm:text-left">
           <span>© {year} {companyName || "AROON"}</span>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap justify-center gap-4">
             {legalNav.map((item) => (
               // @ts-expect-error dynamic WP-driven href
               <Link key={item.id} href={item.url}>
