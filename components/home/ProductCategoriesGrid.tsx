@@ -26,7 +26,7 @@ export function ProductCategoriesGrid({ categories, locale }: { categories: Prod
                 href={{ pathname: "/products", query: { category: category.slug } }}
                 className="group flex flex-col overflow-hidden rounded-[var(--radius-md)] border border-border-default bg-surface-page shadow-[var(--shadow-elevation-1)] transition-all duration-[var(--motion-base)] ease-[var(--ease-confident)] hover:-translate-y-1 hover:shadow-[var(--shadow-elevation-2)]"
               >
-                <div className="relative aspect-[4/3] w-full bg-surface-alt">
+                <div className="relative aspect-square w-full bg-surface-alt">
                   {category.image ? (
                     <Image
                       src={category.image.sizes.medium ?? category.image.url}

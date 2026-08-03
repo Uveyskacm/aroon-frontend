@@ -101,7 +101,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
         <div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] bg-surface-alt">
+          <div className="relative aspect-square overflow-hidden rounded-[var(--radius-lg)] bg-surface-alt">
             {product.featuredImage ? (
               <Image
                 src={product.featuredImage.sizes.large ?? product.featuredImage.url}
@@ -109,7 +109,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
+                className="object-contain"
               />
             ) : null}
           </div>
@@ -198,6 +198,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   title={p.title}
                   description={p.materialType}
                   image={p.featuredImage}
+                  imageAspect="square"
                 />
               ))}
             </FadeInStagger>

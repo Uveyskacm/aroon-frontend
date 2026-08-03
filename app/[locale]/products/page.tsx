@@ -79,6 +79,7 @@ export default async function ProductsArchivePage({ params, searchParams }: Page
                 eyebrow={product.category?.name}
                 description={product.materialType}
                 image={product.featuredImage}
+                imageAspect="square"
               />
             ))}
           </FadeInStagger>

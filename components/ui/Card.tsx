@@ -13,10 +13,18 @@ interface CardProps {
   className?: string;
   /** Set when `href` points straight at a file (e.g. a catalog PDF) rather than another page — prompts a save-to-disk instead of navigating. */
   download?: boolean;
+  /**
+   * "4/3" (default) fits catalog/news/reference cover photography, which
+   * is landscape-shot. Product photography here is square (studio shots
+   * on white), so `object-cover` in a 4/3 box crops the left/right edges
+   * off the product — pass "square" from product contexts to match the
+   * source image's own aspect ratio and avoid any crop at all.
+   */
+  imageAspect?: "4/3" | "square";
 }
 
 /** One shared card primitive reused by Product/Catalog/News/Reference cards (Phase 2 §6). */
-export function Card({ href, image, eyebrow, title, description, footer, className, download }: CardProps) {
+export function Card({ href, image, eyebrow, title, description, footer, className, download, imageAspect = "4/3" }: CardProps) {
   return (
     <a
       href={href}
@@ -29,7 +37,7 @@ export function Card({ href, image, eyebrow, title, description, footer, classNa
         className,
       )}
     >
-      <div className="relative aspect-[4/3] w-full bg-surface-alt">
+      <div className={clsx("relative w-full bg-surface-alt", imageAspect === "square" ? "aspect-square" : "aspect-[4/3]")}>
         {image ? (
           <Image
             src={image.sizes.medium ?? image.url}
