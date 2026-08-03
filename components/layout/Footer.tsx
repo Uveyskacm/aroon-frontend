@@ -57,15 +57,15 @@ export function Footer({ locale, settings, corporateNav, resourcesNav, legalNav,
   return (
     <footer className="bg-surface-inverse text-text-inverse">
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-[clamp(20px,4vw,64px)] py-16 sm:grid-cols-2 lg:grid-cols-5">
-        <div className="lg:col-span-1">
+        <div className="flex flex-col items-center text-center sm:items-start sm:text-left lg:col-span-1">
           {settings.logoUrl ? (
             <Image
               src={settings.logoUrl}
               alt={companyName || "AROON"}
               width={0}
               height={0}
-              sizes="200px"
-              className="h-14 w-auto"
+              sizes="220px"
+              className="h-16 w-auto"
             />
           ) : (
             <span className="text-xl font-bold">{companyName || "AROON"}</span>
@@ -74,7 +74,7 @@ export function Footer({ locale, settings, corporateNav, resourcesNav, legalNav,
             <p className="mt-3 text-sm text-text-inverse-muted">{settings.footerBlurb}</p>
           ) : null}
           {settings.socialLinks.length ? (
-            <ul className="mt-4 flex flex-col gap-2">
+            <ul className="mt-4 flex flex-col items-center gap-2 sm:items-start">
               {settings.socialLinks.map((link) => (
                 <li key={link.platform + link.url}>
                   <a
