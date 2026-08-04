@@ -30,7 +30,7 @@ function Slide({ modelUrl }: { modelUrl: string }) {
       <color attach="background" args={["#f1f2f4"]} />
       <ambientLight intensity={0.6} />
       <directionalLight position={[3, 4, 2]} intensity={1.2} />
-      <Environment preset="city" environmentIntensity={0.4} />
+      <Environment files="/hdri/potsdamer_platz_1k.hdr" environmentIntensity={0.4} />
       <Suspense fallback={null}>
         <Model url={modelUrl} />
       </Suspense>

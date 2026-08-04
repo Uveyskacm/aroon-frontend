@@ -72,7 +72,7 @@ export function HeroScene({ onFirstFrame }: { onFirstFrame?: () => void }) {
       <ambientLight intensity={0.25} />
       <directionalLight position={[3, 4, 2]} intensity={1.4} />
       <directionalLight position={[-3, -2, -2]} intensity={0.4} color="#174c9b" />
-      <Environment preset="city" environmentIntensity={0.35} />
+      <Environment files="/hdri/potsdamer_platz_1k.hdr" environmentIntensity={0.35} />
       <PipeGroup />
     </Canvas>
   );
