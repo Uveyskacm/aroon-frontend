@@ -6,6 +6,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { useWebglSupport } from "@/lib/useWebglSupport";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import { CanvasErrorBoundary } from "@/components/three/CanvasErrorBoundary";
 import { Link } from "@/i18n/navigation";
 import type { HomeFields } from "@/lib/types/wordpress";
 
@@ -49,7 +50,9 @@ export function Hero({ hero }: HeroProps) {
             className="absolute inset-0"
             style={{ opacity: sceneReady ? 1 : 0, transition: "opacity 350ms ease" }}
           >
-            <HeroScene onFirstFrame={() => setSceneReady(true)} />
+            <CanvasErrorBoundary>
+              <HeroScene onFirstFrame={() => setSceneReady(true)} />
+            </CanvasErrorBoundary>
           </div>
         ) : null}
       </div>

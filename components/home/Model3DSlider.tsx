@@ -5,6 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls, useGLTF, Center, Bounds } from "@react-three/drei";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useWebglSupport } from "@/lib/useWebglSupport";
+import { CanvasErrorBoundary } from "@/components/three/CanvasErrorBoundary";
 import type { Locale } from "@/i18n/routing";
 
 const HEADING: Record<Locale, string> = {
@@ -59,7 +60,9 @@ export function Model3DSlider({
     <section className="mx-auto max-w-[1280px] px-[clamp(20px,4vw,64px)] py-[clamp(64px,8vw,128px)]">
       <h2 className="text-[length:var(--text-h2)] text-text-primary">{HEADING[locale]}</h2>
       <div className="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-lg)] border border-border-default bg-surface-alt sm:aspect-[2/1]">
-        <Slide key={current.modelUrl} modelUrl={current.modelUrl} />
+        <CanvasErrorBoundary key={current.modelUrl}>
+          <Slide modelUrl={current.modelUrl} />
+        </CanvasErrorBoundary>
 
         {models.length > 1 ? (
           <>
