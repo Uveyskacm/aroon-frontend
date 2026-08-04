@@ -3,6 +3,7 @@ import type { Locale } from "@/i18n/routing";
 import { getSettings } from "@/lib/api/settings";
 import { getLegalStatus } from "@/lib/api/legal";
 import { ContactForm } from "@/components/forms/ContactForm";
+import { LocationMap } from "@/components/contact/LocationMap";
 
 export async function generateMetadata({
   params,
@@ -28,19 +29,14 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
       </h1>
 
       <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.2fr]">
-        <div className="flex flex-col gap-4 text-text-muted">
-          {settings.hqAddress ? <p>{settings.hqAddress}</p> : null}
-          {settings.phone ? <p>{settings.phone}</p> : null}
-          {settings.email ? <p>{settings.email}</p> : null}
-          {settings.businessHours ? <p>{settings.businessHours}</p> : null}
-          {settings.mapsEmbedUrl ? (
-            <iframe
-              src={settings.mapsEmbedUrl}
-              className="mt-4 h-64 w-full rounded-[var(--radius-md)] border border-border-default"
-              loading="lazy"
-              title="Harita"
-            />
-          ) : null}
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4 text-text-muted">
+            {settings.hqAddress ? <p>{settings.hqAddress}</p> : null}
+            {settings.phone ? <p>{settings.phone}</p> : null}
+            {settings.email ? <p>{settings.email}</p> : null}
+            {settings.businessHours ? <p>{settings.businessHours}</p> : null}
+          </div>
+          <LocationMap locale={typedLocale} />
         </div>
         <ContactForm locale={typedLocale} kvkkReady={legalStatus.kvkk.ready} />
       </div>
