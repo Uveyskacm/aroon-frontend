@@ -1,62 +1,34 @@
 "use client";
 
-import { useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { resolveIcon } from "@/lib/icons";
 import type { HomeFields } from "@/lib/types/wordpress";
 
-gsap.registerPlugin(ScrollTrigger);
+const STEP_DURATION_MS = 2600;
 
 /**
- * The one GSAP-pinned section on the page (Phase 3/Phase 6 §4). Desktop
- * (lg+) pins and scroll-links step activation; mobile plain-fades via
- * Motion. ScrollTrigger.matchMedia() owns its own teardown/rebuild across
- * the breakpoint, no hand-rolled resize logic.
+ * Auto-advancing step showcase (replaces the old scroll-scrubbed/pinned
+ * version — that required the visitor to actively scroll through the
+ * section to see anything happen, which read as static on first glance).
+ * Starts cycling once the section scrolls into view, loops continuously,
+ * and pulses a glow on the active icon so each step visibly "lights up"
+ * rather than just swapping a background color.
  */
 export function ProcessSection({ process }: { process: HomeFields["process"] }) {
   const container = useRef<HTMLDivElement>(null);
+  const inView = useInView(container, { once: false, amount: 0.4 });
   const [activeStep, setActiveStep] = useState(0);
   const reduceMotion = useReducedMotion();
   const steps = process.steps;
 
-  useGSAP(
-    () => {
-      if (reduceMotion || !steps.length) return;
-
-      const mm = gsap.matchMedia();
-      mm.add("(min-width: 1024px)", () => {
-        const stepEls = gsap.utils.toArray<HTMLElement>(".process-step");
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: container.current,
-            start: "top top",
-            end: `+=${steps.length * 60}%`,
-            pin: true,
-            scrub: 0.5,
-          },
-        });
-
-        stepEls.forEach((el, i) => {
-          tl.to(
-            {},
-            {
-              duration: 1,
-              onStart: () => setActiveStep(i),
-              onReverseComplete: () => setActiveStep(Math.max(0, i - 1)),
-            },
-          );
-        });
-
-        return () => tl.kill();
-      });
-
-      return () => mm.revert();
-    },
-    { scope: container, dependencies: [steps.length, reduceMotion] },
-  );
+  useEffect(() => {
+    if (!inView || reduceMotion || steps.length < 2) return;
+    const timer = setInterval(() => {
+      setActiveStep((i) => (i + 1) % steps.length);
+    }, STEP_DURATION_MS);
+    return () => clearInterval(timer);
+  }, [inView, reduceMotion, steps.length]);
 
   if (!steps.length) return null;
 
@@ -87,7 +59,7 @@ export function ProcessSection({ process }: { process: HomeFields["process"] }) 
               className="h-full origin-left bg-white"
               initial={reduceMotion ? undefined : { scaleX: 0 }}
               animate={reduceMotion ? undefined : { scaleX: activeStep / Math.max(steps.length - 1, 1) }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: STEP_DURATION_MS / 1000, ease: "linear" }}
               style={reduceMotion ? { width: `${(activeStep / Math.max(steps.length - 1, 1)) * 100}%` } : undefined}
             />
           </div>
@@ -104,16 +76,26 @@ export function ProcessSection({ process }: { process: HomeFields["process"] }) 
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
               >
-                <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-full bg-white/10 transition-all duration-300 ease-out ${
-                    isActive ? "lg:scale-110 lg:bg-white lg:text-surface-inverse" : "lg:opacity-55"
-                  }`}
-                >
-                  {Icon ? <Icon aria-hidden size={22} /> : <span>{i + 1}</span>}
+                <div className="relative flex h-12 w-12 items-center justify-center">
+                  {isActive && !reduceMotion ? (
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-white"
+                      initial={{ opacity: 0.6, scale: 1 }}
+                      animate={{ opacity: 0, scale: 1.9 }}
+                      transition={{ duration: 1.4, ease: "easeOut", repeat: Infinity }}
+                    />
+                  ) : null}
+                  <div
+                    className={`relative flex h-12 w-12 items-center justify-center rounded-full bg-white/10 transition-all duration-300 ease-out ${
+                      isActive ? "scale-110 bg-white text-surface-inverse shadow-[0_0_20px_4px_rgba(255,255,255,0.45)]" : "opacity-55"
+                    }`}
+                  >
+                    {Icon ? <Icon aria-hidden size={22} /> : <span>{i + 1}</span>}
+                  </div>
                 </div>
                 <h3
                   className={`mt-4 text-[length:var(--text-h4)] transition-opacity duration-300 ease-out ${
-                    isActive ? "" : "lg:opacity-55"
+                    isActive ? "" : "opacity-55"
                   }`}
                 >
                   {step.title}
