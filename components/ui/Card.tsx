@@ -40,7 +40,7 @@ export function Card({ href, image, eyebrow, title, description, footer, classNa
       <div className={clsx("relative w-full bg-surface-alt", imageAspect === "square" ? "aspect-square" : "aspect-[4/3]")}>
         {image ? (
           <Image
-            src={image.sizes.medium ?? image.url}
+            src={image.sizes.large ?? image.url}
             alt={image.alt}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"

@@ -29,7 +29,7 @@ export function ProductCategoriesGrid({ categories, locale }: { categories: Prod
                 <div className="relative aspect-square w-full bg-surface-alt">
                   {category.image ? (
                     <Image
-                      src={category.image.sizes.medium ?? category.image.url}
+                      src={category.image.sizes.large ?? category.image.url}
                       alt={category.image.alt}
                       fill
                       sizes="(max-width: 1024px) 50vw, 25vw"
