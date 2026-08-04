@@ -1,61 +1,28 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import { useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { useWebglSupport } from "@/lib/useWebglSupport";
-import { useMediaQuery } from "@/lib/useMediaQuery";
-import { CanvasErrorBoundary } from "@/components/three/CanvasErrorBoundary";
+import { motion } from "motion/react";
+import { HeroSlider, type HeroSlide } from "@/components/home/HeroSlider";
 import { Link } from "@/i18n/navigation";
 import type { HomeFields } from "@/lib/types/wordpress";
 
-const HeroScene = dynamic(() => import("@/components/three/HeroScene"), { ssr: false });
+/**
+ * Hardcoded for now (Phase 16 follow-up to the old 3D pipe canvas) — add
+ * more entries here once more hero photography is ready, no other changes
+ * needed. Falls back to the WP-managed `hero.fallbackImage` if this array
+ * is ever emptied out.
+ */
+const SLIDES: HeroSlide[] = [{ src: "/hero/hero-pipes-1.png", alt: "" }];
 
 interface HeroProps {
   hero: HomeFields["hero"];
 }
 
-/**
- * Poster is the LCP element in the initial payload; the R3F canvas mounts
- * post-hydration only at md+, only with WebGL2 support, only without
- * prefers-reduced-motion — then crossfades in over the poster on its
- * first rendered frame (Phase 6 §6, §7, §8).
- */
 export function Hero({ hero }: HeroProps) {
-  const reduceMotion = useReducedMotion();
-  const webglSupported = useWebglSupport();
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-  const [sceneReady, setSceneReady] = useState(false);
-
-  const shouldMount3d =
-    hero.visualMode === "3d" && isDesktop && webglSupported === true && !reduceMotion;
+  const slides = SLIDES.length ? SLIDES : hero.fallbackImage ? [{ src: hero.fallbackImage.url, alt: hero.fallbackImage.alt }] : [];
 
   return (
     <section className="relative flex min-h-[640px] items-center overflow-hidden bg-surface-stage text-text-inverse">
-      <div className="absolute inset-0">
-        {hero.fallbackImage ? (
-          <Image
-            src={hero.fallbackImage.sizes.large ?? hero.fallbackImage.url}
-            alt={hero.fallbackImage.alt}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-            style={{ opacity: sceneReady ? 0 : 1, transition: "opacity 350ms ease" }}
-          />
-        ) : null}
-        {shouldMount3d ? (
-          <div
-            className="absolute inset-0"
-            style={{ opacity: sceneReady ? 1 : 0, transition: "opacity 350ms ease" }}
-          >
-            <CanvasErrorBoundary>
-              <HeroScene onFirstFrame={() => setSceneReady(true)} />
-            </CanvasErrorBoundary>
-          </div>
-        ) : null}
-      </div>
+      <HeroSlider images={slides} />
 
       <div className="relative mx-auto max-w-[1280px] px-[clamp(20px,4vw,64px)] py-32">
         <motion.h1
