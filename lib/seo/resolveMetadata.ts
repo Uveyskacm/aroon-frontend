@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { Locale } from "@/i18n/routing";
+import { defaultLocale, type Locale } from "@/i18n/routing";
 import type { Seo, Translations } from "@/lib/types/wordpress";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aroon.com.tr";
@@ -36,9 +36,10 @@ export function resolveMetadata({
       languages[lang] = `${SITE_URL}/${lang}${pathname}`;
     }
   }
-  if (languages.tr) {
-    languages["x-default"] = languages.tr;
-  }
+  // x-default is the fallback Google shows visitors who don't match any
+  // other hreflang (most of Europe, since we only tag tr/en) — that has to
+  // be the site's actual default locale, not hardcoded to Turkish.
+  languages["x-default"] = languages[defaultLocale] ?? `${SITE_URL}/${defaultLocale}${pathname}`;
 
   const robotsIndex = seo?.robots?.index ?? true;
   const robotsFollow = seo?.robots?.follow ?? true;

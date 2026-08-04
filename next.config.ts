@@ -16,8 +16,10 @@ const wpHostname = (() => {
  * Security headers (Step 1 Important #8 / Step 3 "security configuration")
  * — a pragmatic, no-nonce CSP: strict on origins (no wildcards, nothing
  * beyond what this app actually loads today — self, the WP media host,
- * Cloudflare Turnstile, and the Google Maps embed on /contact), but
- * 'unsafe-inline' on script/style since
+ * Cloudflare Turnstile, the Google Maps embed on /contact, and Google
+ * Analytics/gtag.js — allowed even while `settings.ga4MeasurementId` is
+ * still empty so filling it in from wp-admin doesn't also need a CSP
+ * change), but 'unsafe-inline' on script/style since
  * this app has no nonce-propagation middleware wired up. That's a real,
  * documented limitation (tightening it further is a Step 15 follow-up),
  * not a silent gap — still meaningfully blocks arbitrary third-party
@@ -25,11 +27,11 @@ const wpHostname = (() => {
  */
 const contentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
+  "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com",
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: https://${wpHostname}`,
+  `img-src 'self' data: https://${wpHostname} https://www.google-analytics.com`,
   "font-src 'self' data:",
-  "connect-src 'self' https://challenges.cloudflare.com",
+  "connect-src 'self' https://challenges.cloudflare.com https://www.google-analytics.com https://www.googletagmanager.com",
   "frame-src https://challenges.cloudflare.com https://www.google.com",
   "object-src 'none'",
   "base-uri 'self'",
